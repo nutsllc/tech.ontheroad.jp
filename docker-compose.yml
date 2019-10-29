@@ -1,0 +1,14 @@
+tech.ontheroad.jp-nginx:
+    image: nutsllc/toybox-nginx:1.15.7-alpine
+    container_name: tech.ontheroad.jp-nginx
+    volumes:
+        - html:/usr/share/nginx/html
+    environment:
+        - TOYBOX_GID=${TOYBOX_GID}
+        - TOYBOX_UID=${TOYBOX_UID}
+        - VIRTUAL_HOST=${URL}
+        - LETSENCRYPT_HOST=${URL}
+        - LETSENCRYPT_EMAIL=${EMAIL}
+    ports:
+        - "80"
+

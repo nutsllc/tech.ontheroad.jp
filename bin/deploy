@@ -1,0 +1,33 @@
+#!/bin/sh
+
+SELF=$(cd $(dirname $0); pwd)
+
+if [ -f ${SELF}/../.env ]; then
+    . ${SELF}/../.env
+    mkdir -p ${SELF}/html
+else
+    echo "there is no .env file."
+    exit 1;
+fi
+
+# regenerate
+printf ">> regenerate HTML files..."
+sh ${SELF}/../hugo-site/bin/hugo
+echo "done."
+
+# deploy
+printf ">> deploy..."
+rm -rf ${SELF}/../html
+cp -r ${SELF}/../hugo-site/public/ ${SELF}/../html/
+echo "done."
+
+# restart docker
+printf ">> restart docker container..."
+cd ${SELF}/../
+docker-compose down
+docker-compose up -d
+echo "done."
+
+echo "complete!"
+
+exit 0

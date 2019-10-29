@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+SELF=$(cd $(dirname $0); pwd)
+echo ${SELF}
+if [ -f ${SELF}/../.env ]; then
+    . ${SELF}/../.env
+else
+    echo "there is no .env file."
+    exit 1;
+fi
+
+function _clone_repositories() {
+    cd ${SELF}/../
+    git clone --recursive ${REPO_URL}/${REPO_VENDOR}/${REPO_NAME} ${SELF}/../hugo-site
+    git clone --bare ${REPO_URL}/${REPO_VENDOR}/${REPO_NAME} ${SELF}/../hugo-site.git
+
+##    # submodule
+##    cd ${SELF}/../hugo-site
+##    git submodule init
+##    git submodule update
+}
+
+_clone_repositories
+
+exit 0
