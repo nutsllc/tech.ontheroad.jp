@@ -16,10 +16,9 @@ function _clone_repositories() {
     git clone --recursive ${REPO_URL}/${REPO_VENDOR}/${REPO_NAME} ${SELF}/../hugo-site
     git clone --bare ${REPO_URL}/${REPO_VENDOR}/${REPO_NAME} ${SELF}/../hugo-site.git
 
-##    # submodule
-##    cd ${SELF}/../hugo-site
-##    git submodule init
-##    git submodule update
+#    # submodule
+#    cd ${SELF}/../hugo-site
+#    git submodule update --init --recurcive
 }
 
 _clone_repositories
